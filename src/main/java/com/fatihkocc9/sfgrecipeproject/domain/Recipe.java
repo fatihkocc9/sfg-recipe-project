@@ -1,9 +1,7 @@
-package com.fatihkocc9.sfgrecipeproject.model;
+package com.fatihkocc9.sfgrecipeproject.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
-
 
 @Entity
 public class Recipe {
@@ -18,9 +16,9 @@ public class Recipe {
   private String url;
   private String directions;
   private String description;
+  @Lob private Byte[] image;
 
-  @Lob
-  private Byte[] image;
+  @Enumerated(value = EnumType.STRING)
   private Difficulty difficulty;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
@@ -28,6 +26,13 @@ public class Recipe {
 
   @OneToOne(cascade = CascadeType.ALL)
   private Notes notes;
+
+  @ManyToMany
+  @JoinTable(
+      name = "recipe_category",
+      joinColumns = @JoinColumn(name = "recipes_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
+  private Set<Category> categories;
 
   public Long getId() {
     return id;
@@ -123,5 +128,13 @@ public class Recipe {
 
   public void setNotes(Notes notes) {
     this.notes = notes;
+  }
+
+  public Set<Category> getCategories() {
+    return categories;
+  }
+
+  public void setCategories(Set<Category> categories) {
+    this.categories = categories;
   }
 }

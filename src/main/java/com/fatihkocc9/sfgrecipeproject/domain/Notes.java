@@ -1,4 +1,4 @@
-package com.fatihkocc9.sfgrecipeproject.model;
+package com.fatihkocc9.sfgrecipeproject.domain;
 
 import javax.persistence.*;
 
@@ -10,6 +10,7 @@ public class Notes {
   private Long id;
 
   private String note;
+  @OneToOne private Recipe recipe;
 
   public Long getId() {
     return id;
@@ -25,5 +26,13 @@ public class Notes {
 
   public void setNote(String note) {
     this.note = note;
+  }
+
+  public Recipe getRecipe() {
+    return recipe;
+  }
+
+  public void setRecipe(Recipe recipe) {
+    this.recipe = recipe;
   }
 }

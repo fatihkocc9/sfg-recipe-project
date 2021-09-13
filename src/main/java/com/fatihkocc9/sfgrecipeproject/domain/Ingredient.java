@@ -1,4 +1,4 @@
-package com.fatihkocc9.sfgrecipeproject.model;
+package com.fatihkocc9.sfgrecipeproject.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,14 +9,21 @@ public class Ingredient {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String description;
   private BigDecimal amount;
 
-  @OneToOne
-  private UnitOfMeasure uom;
+  @OneToOne private UnitOfMeasure uom;
 
-  @ManyToOne
-  private Recipe recipe;
+  @ManyToOne private Recipe recipe;
+
+
+  public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
+    this.description = description;
+    this.amount = amount;
+    this.uom = uom;
+    this.recipe = recipe;
+  }
 
   public Long getId() {
     return id;
@@ -57,4 +64,5 @@ public class Ingredient {
   public void setRecipe(Recipe recipe) {
     this.recipe = recipe;
   }
+
 }
