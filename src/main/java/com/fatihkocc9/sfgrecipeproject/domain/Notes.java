@@ -9,7 +9,7 @@ public class Notes {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String note;
+  @Lob private String note;
   @OneToOne private Recipe recipe;
 
   public Long getId() {
